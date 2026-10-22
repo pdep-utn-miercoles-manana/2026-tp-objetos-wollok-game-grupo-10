@@ -1,5 +1,12 @@
 import wollok.game.*
+import pantallas.*
 
 program juego {
+  game.width(100)
+  game.height(100)
+  game.cellSize(20)
+  game.title("Juego")
   game.start()
+
+  game.addVisual(personaje)
 }
