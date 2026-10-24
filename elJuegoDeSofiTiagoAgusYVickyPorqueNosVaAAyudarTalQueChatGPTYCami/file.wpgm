@@ -1,12 +1,21 @@
 import wollok.game.*
 import pantallas.*
 
-program juego {
-  game.width(100)
-  game.height(100)
-  game.cellSize(20)
-  game.title("Juego")
-  game.start()
+// object barraAcademica{
+//   var nivelAcademico = 0
+//   method image()= "cerebro.png"
+//   method subir(puntos) { nivelAcademico = (nivelAcademico + puntos ).min(100) }
+//   method bajar(puntos) { nivelAcademico = (nivelAcademico - puntos ).max(0) }
+ 
+// }
 
+
+
+program juego {
+  game.width(20)
+  game.height(15)
+  game.cellSize(40)
+  game.title("Juego")
   game.addVisual(personaje)
+  game.start()
 }
