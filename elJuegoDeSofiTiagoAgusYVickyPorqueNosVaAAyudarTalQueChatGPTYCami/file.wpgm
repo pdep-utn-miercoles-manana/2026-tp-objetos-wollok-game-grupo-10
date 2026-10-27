@@ -4,9 +4,7 @@ import Consumibles.*
 import BarraAcad.*
 import boton.*
 import Caminos.*
-
-object menu{} // agregamos una foto para hacer el menu
-
+import menu.*
 
 program juego {
   game.width(32)
@@ -14,23 +12,33 @@ program juego {
   game.cellSize(40)
   game.title("Juego")
 
-  game.addVisual(menu)
-
-  keyboard.num1().onPressDo({caminoElegido.cambiarA(caminoFacil)
-      game.removeVisual(menu)}) // esto es para elegir al dificultad, si no vamos a 
-  keyboard.num2().onPressDo({caminoElegido.cambiarA(caminoMedio)// hacerlo se saca y crei que repite logica
-      game.removeVisual(menu)}) 
-  keyboard.num3().onPressDo({caminoElegido.cambiarA(caminoDificil)
-      game.removeVisual(menu)})
-  keyboard.num4().onPressDo({caminoElegido.cambiarA(CaminoAleatorio)
-      game.removeVisual(menu)})
+  
+  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoFacil)}) // esto es para elegir al dificultad
+  keyboard.num2().onPressDo({modoDeJuego.cambiarA(caminoMedio) }) 
+  keyboard.num3().onPressDo({modoDeJuego.cambiarA(caminoDificil)})
 
   game.addVisual(barraAcademica)
   game.addVisual(botonF)
   game.addVisual(botonG)
+  game.addVisual(espacio1)
+  game.addVisual(espacio2)
+  game.addVisual(nota_rosa)
+  game.addVisual(nota_amarilla)
 
-  // keyboard.f().onPressDo({ .elegirIzquierda() })
-  // keyboard.g().onPressDo({ .elegirDerecha() })
+
+  keyboard.b().onPressDo({inventario.consumir()})
+
+  keyboard.f().onPressDo({
+  const camino = modoDeJuego.caminoActual()
+  camino.elegir(camino.izquierda())})
+
+  keyboard.g().onPressDo({
+  const camino = modoDeJuego.caminoActual()
+  camino.elegir(camino.derecha())})
+  
+
+  game.addVisual(menu)
+
   game.start()
 }
 

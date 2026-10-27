@@ -1,29 +1,38 @@
 import Consumibles.*
+import menu.*
+import BarraAcad.*
+
  class Camino{
     var paresDeCaminos=[]
+    var opcionesUsadas= []
     var opciones = []
    
 
   method izquierda() = opciones.first()
   method derecha() = opciones.last()
 
-  method elegirIzquierda() {
-    self.izquierda().seleccionado()
+  method elegir(unLado){
+    opciones.forEach({unaOpcion => game.removeVisual(unaOpcion)})
+    unLado.seleccionado()
   }
 
-  method elegirDerecha() {
-    self.derecha().seleccionado()
-  }
-}
- 
 
-class CaminoAleatorio inherits Camino{
-    method sortear() {
-    const primero = paresDeCaminos.anyOne()
-    const segundo = paresDeCaminos.filter({ c => c != primero }).anyOne()
-    opciones = [primero, segundo]
+  method guardarUnoRandom(){
+    var opcion1 =  paresDeCaminos.get(0.randomUpTo(paresDeCaminos.size())) 
+    paresDeCaminos.remove(opcion1)
+    opciones.add(opcion1)
+    opcionesUsadas.add(opcion1)
   }
 
+  method generarOpciones() {
+    opciones.clear()
+    self.guardarUnoRandom()
+    self.guardarUnoRandom() // abrir la lista opciones y darles la posicon
+    opciones.last().position(10, 5)
+    opciones.first().position(5, 5)
+  }
+
+  
 }
 
 const caminoFacil = new Camino ()
@@ -32,12 +41,42 @@ const caminoMedio = new Camino ()
 
 const caminoDificil = new Camino()
 
-const caminoAleatorio = new CaminoAleatorio()
+class Nota{
+  const color
+  var property  position
+  method image()="nota_" + color + ".gif"
+}
+
+const nota_rosa = new Nota(color = "rosa", position = game.at(1,3))
+const nota_amarilla = new Nota(color = "amarilla", position = game.at(12,3))
 
 
-
-object caminoElegido {
+object modoDeJuego {
     var caminoActual = caminoFacil
-    method cambiarA(unCamino){ caminoActual = unCamino}
+    method cambiarA(unCamino){ caminoActual = unCamino
+    game.removeVisual(menu)}
+
+    method caminoActual() = caminoActual
+
+}
+
+class Opcion{
+  const descripcion
+  const resultado
+
+  const puntosAcademicos = 0
+  const puntosEstres = 0
+
+  method seleccionado(){
+     barraAcademica.modificarNivelAcademico(puntosAcademicos)
+     barraAcademica.modificarNivelEstres(puntosEstres)
+     game.tick(20, game.removeVisual(self), self.text(resultado)) 
+
+  }
+
+  method position(x,y) =game.at(x,y)
+  method text(unTexto) = unTexto
+  
+  
 
 }

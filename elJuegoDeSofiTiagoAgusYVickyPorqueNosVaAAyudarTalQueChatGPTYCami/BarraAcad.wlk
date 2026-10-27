@@ -1,6 +1,6 @@
 
  object barraAcademica{
-  var property position = game.at(27, 15)
+  var property position = game.at(27, 14.2)
   var nivelAcademico = 0
   var nivelEstres = 0
 

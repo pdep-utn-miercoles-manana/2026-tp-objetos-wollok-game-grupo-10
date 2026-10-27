@@ -20,6 +20,7 @@ class Consumible{
   }
    else { 
       game.say(espacio1, "inventario lleno")
+      game.removeVisual(self)
    }
   }
  }
@@ -28,10 +29,10 @@ const chocolate = new Consumible( nombreArchivo= "choco" , puntosAcademicos =10,
 const bestia = new Consumible(nombreArchivo= "energetica", puntosAcademicos=15, puntosEstres=5) 
 
 object inventario {
-  const property items = []
+  var property items = []
 
   method guardar(unItem) {
-    if (items.size() < 2) {
+    if (self.hayLugar()) {
       items.add(unItem)
     } else {
       game.say(espacio1, "Inventario lleno")
@@ -53,17 +54,17 @@ object inventario {
 
 class EspacioInventario{
    var property position = game.at(0,0)
-   const numero
+   const numeroPosicionInventario
 
    method image() =
-    if (numero < inventario.items().size())
-      inventario.items().get(numero).imagenInventario() // get me da lo de una posicion
+    if (numeroPosicionInventario < inventario.items().size())
+      inventario.items().get(numeroPosicionInventario).imagenInventario() // get me da lo de una posicion
     else
       "Consumibles/cuadrito_azul.png"
 }
 
-const espacio1 = new EspacioInventario(position = game.at(0, 0), numero = 0)
-const espacio2 = new EspacioInventario(position = game.at(1, 0), numero = 1)
+const espacio1 = new EspacioInventario(position = game.at(26, 11), numeroPosicionInventario = 0)
+const espacio2 = new EspacioInventario(position = game.at(29, 11), numeroPosicionInventario = 1)
 
 
 /*object sinConsumible{
