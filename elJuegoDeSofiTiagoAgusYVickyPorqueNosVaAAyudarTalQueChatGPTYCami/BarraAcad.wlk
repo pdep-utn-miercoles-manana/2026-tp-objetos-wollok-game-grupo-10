@@ -1,3 +1,7 @@
+import Caminos.*
+import menu.*
+
+
 
  object barraAcademica{
   var property position = game.at(27, 14.2)
@@ -17,4 +21,13 @@
       nivelEstres = 0
   }
   method image() = "cerebros/Cerebro" + (nivelAcademico.div(10)) + ".gif" //Hay que aplicar en afectar
+
+  method terminar() {
+      nivelAcademico = 0
+      nivelEstres = 0
+      modoDeJuego.resetear()
+      game.addVisual(menu)
+  }
+  
+
 }
