@@ -34,8 +34,9 @@ import BarraAcad.*
     opciones.clear()
     self.guardarUnoRandom()
     self.guardarUnoRandom() // abrir la lista opciones y darles la posicon
-    opciones.last().position(10, 5)
-    opciones.first().position(5, 5)
+    //CAMBIADO: antes (5,5) y (10,5), las dos caian abajo en la nota rosa
+    opciones.first().position(nota_rosa.posicionDelTexto())     // F -> nota rosa
+    opciones.last().position(nota_amarilla.posicionDelTexto())  // G -> nota amarilla
   }
 
   //HACER FUNCION TERMINAR
@@ -91,6 +92,9 @@ class Nota{
   const color
   var property  position
   method image()="nota_" + color + ".gif"
+  //NUEVO: donde va la imagen del texto (assets/textos, 11x6 celdas) para que quede centrada en el papel,
+  //abajo del pin y arriba de la punta doblada. Las imagenes se dibujan desde la esquina de abajo a la izquierda.
+  method posicionDelTexto() = position.right(1).up(4)
 }
 //-----------------------------------//
 
@@ -114,7 +118,8 @@ object modoDeJuego {
 }
 
 class Opcion{
-  const descripcion
+  const nombre //NUEVO: con esto se arma el nombre de la imagen del texto
+  const descripcion //el script herramientas/generarTextos.py lee estos textos para hacer las imagenes
   const resultado
 
   const puntosAcademicos = 0
@@ -145,9 +150,14 @@ class Opcion{
   //method position(x,y) =game.at(x,y)
   method position(x,y) { position = game.at(x,y) } //CAMBIADO: ahora guarda la posicion
   method text(unTexto) = unTexto
-  method text() = if (mostrandoResultado) resultado else descripcion //NUEVO: lo que se dibuja
+  //NUEVO: el texto se muestra como imagen (text() de Wollok es siempre de 12px).
+  //Las imagenes estan en assets/textos y se generan con herramientas/generarTextos.py
+  method image() = "textos/" + nombre + (if (mostrandoResultado) "_resultado" else "_opcion") + ".png"
+  method descripcion() = descripcion
+  method resultado() = resultado
 
 }
 
-const opcion1 = new Opcion(puntosAcademicos=50, descripcion="hola que tal",resultado="no me saludaron")
-const opcion2 = new Opcion(puntosAcademicos=90, descripcion="hola ",resultado="me saludaron")
+//SACADO: eran de prueba, no se usaban y ahora Opcion necesita nombre
+//const opcion1 = new Opcion(puntosAcademicos=50, descripcion="hola que tal",resultado="no me saludaron")
+//const opcion2 = new Opcion(puntosAcademicos=90, descripcion="hola ",resultado="me saludaron")

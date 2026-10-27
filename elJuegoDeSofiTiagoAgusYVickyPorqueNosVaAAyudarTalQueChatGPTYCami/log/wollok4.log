@@ -174,3 +174,33 @@
 {"level":"error","message":"✘ Could not produce symbols: document file:///t%3A/DESCARGAS/Caminos.wlk not found","timestamp":"2026-10-27T18:27:10.955Z"}
 {"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\JUEGO\\2026-tp-objetos-wollok-game-grupo-10\\elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":215,"timestamp":"2026-10-27T18:29:52.441Z"}
 {"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on c:\\JUEGO\\2026-tp-objetos-wollok-game-grupo-10\\elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":165569,"timestamp":"2026-10-27T18:32:37.795Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":521,"timestamp":"2026-10-27T18:36:31.378Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":147621,"timestamp":"2026-10-27T18:38:58.478Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":761,"timestamp":"2026-10-27T18:39:09.868Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":469007,"timestamp":"2026-10-27T18:46:58.114Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":534,"timestamp":"2026-10-27T18:47:00.580Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":57238,"timestamp":"2026-10-27T18:47:57.283Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":603,"timestamp":"2026-10-27T18:47:59.227Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":833711,"timestamp":"2026-10-27T19:01:52.335Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":471,"timestamp":"2026-10-27T19:01:54.421Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":298400,"timestamp":"2026-10-27T19:06:52.350Z"}
+{"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34m/mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami\u001b[39m\u001b[23m","ok":true,"timeElapsed":487,"timestamp":"2026-10-27T19:06:54.455Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":155,"timestamp":"2026-10-27T19:08:30.585Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":127,"timestamp":"2026-10-27T19:08:30.716Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":114,"timestamp":"2026-10-27T19:08:30.930Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":113,"timestamp":"2026-10-27T19:08:31.201Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":121,"timestamp":"2026-10-27T19:08:31.421Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":109,"timestamp":"2026-10-27T19:08:31.531Z"}
+{"level":"info","message":"⌛ Validating BarraAcad.wlk","timeElapsed":110,"timestamp":"2026-10-27T19:08:31.728Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":176,"timestamp":"2026-10-27T19:08:31.904Z"}
+{"level":"info","message":"⌛ Validating pantallas.wlk","timeElapsed":112,"timestamp":"2026-10-27T19:08:32.026Z"}
+{"level":"info","message":"⌛ Validating menu.wlk","timeElapsed":130,"timestamp":"2026-10-27T19:08:32.262Z"}
+{"level":"info","message":"⌛ Validating boton.wlk","timeElapsed":118,"timestamp":"2026-10-27T19:08:32.384Z"}
+{"level":"info","message":"⌛ Validating Consumibles.wlk","timeElapsed":108,"timestamp":"2026-10-27T19:08:32.587Z"}
+{"level":"info","message":"⌛ Validating Caminos.wlk","timeElapsed":106,"timestamp":"2026-10-27T19:08:32.694Z"}
+{"level":"info","message":"⌛ Validating assets/Caminos.wlk","timeElapsed":136,"timestamp":"2026-10-27T19:08:32.831Z"}
+{"level":"info","message":"⌛ Validating assets/Opciones.wlk","timeElapsed":135,"timestamp":"2026-10-27T19:08:32.966Z"}
+{"level":"info","message":"⌛ Validating BarraAcad.wlk","timeElapsed":134,"timestamp":"2026-10-27T19:08:33.102Z"}
+{"level":"info","message":"⌛ Validating pantallas.wlk","timeElapsed":117,"timestamp":"2026-10-27T19:08:33.219Z"}
+{"level":"info","message":"⌛ Validating Opciones.wlk","timeElapsed":103,"timestamp":"2026-10-27T19:08:33.323Z"}
+{"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on /mnt/d/coding/pdp/2026-tp-objetos-wollok-game-grupo-10/elJuegoDeSofiTiagoAgusYVickyPorqueNosVaAAyudarTalQueChatGPTYCami","timeElapsed":132955,"timestamp":"2026-10-27T19:09:06.922Z"}
