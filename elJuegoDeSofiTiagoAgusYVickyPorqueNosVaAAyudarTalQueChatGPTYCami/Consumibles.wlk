@@ -64,3 +64,84 @@ class EspacioInventario{
 
 const espacio1 = new EspacioInventario(position = game.at(0, 0), numero = 0)
 const espacio2 = new EspacioInventario(position = game.at(1, 0), numero = 1)
+
+
+/*object sinConsumible{
+  method nombre() = "nada"
+  method image() = "vacio.jpg"
+  method usar(){}
+}
+
+object inventario{
+  var property position = game.at(0,0)
+  var consumibles = [sinConsumible, sinConsumible]
+  method consumibles() = consumibles
+  const capacidad = 2
+  method capacidad() = capacidad
+
+
+  method agregar(unConsumible){
+    if(self.estaVacio()){//si esta vacia
+      consumibles = [unConsumible, sinConsumible] //lo agrego 1ro 
+    } else if(self.estaLleno()){ //si tiene lleno el inventario
+      self.error("El inventario está lleno, se pierde " + unConsumible.nombre() + " :(") //?? creo
+    } else { //tiene 1 objeto
+      var primero = consumibles.head()
+      consumible = [primero, unConsumible]
+    }
+  }
+
+  method estaVacio() = consumibles == [sinConsumible, sinConsumible]
+  method tieneUnObjeto() = consumibles == [Consumible, sinConsumible] 
+  method estaLleno() = (not consumibles.contains(sinConsumible))
+
+  method usar(){
+    consumibles.head().usar()
+    self.acomodarConsumibles()
+  }
+
+  method acomodarConsumibles(){
+    if(self.estaLleno()){
+      var ultimo = consumibles.last()
+      consumibles = [ultimo, sinConsumible]
+    } else { //tiene 1 objeto
+      self.vaciar()
+    } //el vacio no hace falta ya que no cambia la lista
+  }
+
+  method vaciar(){ consumibles = [sinConsumible, sinConsumible] }
+
+///////////////////////////////////////////////// OTRA OPCION 
+
+  var property position = game.at(0,0)
+  var consumibles = []
+  const capacidad = 2
+  method consumibles() = consumibles
+  method capacidad() = capacidad
+
+  method estaLleno() = consumibles.size()>= capacidad
+
+  method agregar(unConsumible){
+    if(not consumibles.estaLleno() ){
+      consumibles.add(unConsumible)
+    } else {
+      self.error("Esta el inventario lleno, se pierde " + unConsumible.nombre() + ".") //?? creo
+    }
+  }
+
+  method usar(){
+    var primero = consumibles.head()
+    primero.usar()
+    consumibles.remove(primero)
+  }
+
+  method vaciar() { consumibles = [] }
+
+  method texto(){ 
+    var text = ""
+    if (consumibles.isEmpty()){
+      return "vacio"
+    } else { 
+      return consumibles.forEach({ consumible => if(text==""){text = consumible.nombre()}else{text += ", "+consumible.nombre()}})
+    }
+  }*/
