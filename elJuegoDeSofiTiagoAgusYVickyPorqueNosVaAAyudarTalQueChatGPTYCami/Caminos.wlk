@@ -18,7 +18,7 @@ import BarraAcad.*
 
 
   method guardarUnoRandom(){
-    var opcion1 =  paresDeCaminos.get(0.randomUpTo(paresDeCaminos.size())) 
+    var opcion1 =  paresDeCaminos.get(0.randomUpTo(paresDeCaminos.size())) //si no funca, usar randomize
     paresDeCaminos.remove(opcion1)
     opciones.add(opcion1)
     opcionesUsadas.add(opcion1)
@@ -31,21 +31,23 @@ import BarraAcad.*
     opciones.last().position(10, 5)
     opciones.first().position(5, 5)
   }
-
-  
+  //HACER FUNCION TERMINAR
 }
 
-const caminoFacil = new Camino ()
+const caminoFacil = new Camino () //Intentar De lograr modo historia y random
 
 const caminoMedio = new Camino ()
 
 const caminoDificil = new Camino()
 
+//ESTO SON LAS FOTOS DE LAS ETIQUETAS//
 class Nota{
   const color
   var property  position
   method image()="nota_" + color + ".gif"
 }
+//-----------------------------------//
+
 
 const nota_rosa = new Nota(color = "rosa", position = game.at(1,3))
 const nota_amarilla = new Nota(color = "amarilla", position = game.at(12,3))
@@ -76,7 +78,8 @@ class Opcion{
 
   method position(x,y) =game.at(x,y)
   method text(unTexto) = unTexto
-  
-  
 
 }
+
+const opcion1 = new Opcion(puntosAcademicos=50, descripcion="hola que tal",resultado="no me saludaron")
+const opcion1 = new Opcion(puntosAcademicos=90, descripcion="hola ",resultado="me saludaron")
