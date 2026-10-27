@@ -4,14 +4,33 @@ import Consumibles.*
 import BarraAcad.*
 import boton.*
 import Caminos.*
+
+object menu{} // agregamos una foto para hacer el menu
+
+
 program juego {
   game.width(32)
   game.height(18)
   game.cellSize(40)
   game.title("Juego")
+
+  game.addVisual(menu)
+
+  keyboard.num1().onPressDo({caminoElegido.cambiarA(caminoFacil)
+      game.removeVisual(menu)}) // esto es para elegir al dificultad, si no vamos a 
+  keyboard.num2().onPressDo({caminoElegido.cambiarA(caminoMedio)// hacerlo se saca y crei que repite logica
+      game.removeVisual(menu)}) 
+  keyboard.num3().onPressDo({caminoElegido.cambiarA(caminoDificil)
+      game.removeVisual(menu)})
+  keyboard.num4().onPressDo({caminoElegido.cambiarA(CaminoAleatorio)
+      game.removeVisual(menu)})
+
   game.addVisual(barraAcademica)
   game.addVisual(botonF)
   game.addVisual(botonG)
+
+  // keyboard.f().onPressDo({ .elegirIzquierda() })
+  // keyboard.g().onPressDo({ .elegirDerecha() })
   game.start()
 }
 
