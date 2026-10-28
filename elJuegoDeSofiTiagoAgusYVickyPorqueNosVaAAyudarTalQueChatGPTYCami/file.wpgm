@@ -32,15 +32,15 @@ program juego {
   keyboard.f().onPressDo({
   const camino = modoDeJuego.caminoActual()
   //camino.elegir(camino.izquierda())})
-  if (camino.puedeElegir()) { camino.elegir(camino.izquierda()) } }) //CAMBIADO: solo si hay opciones en pantalla
+  if (camino.puedeElegir()) { camino.elegir(camino.izquierda()) } }) //solo si hay opciones en pantalla
 
   keyboard.g().onPressDo({
   const camino = modoDeJuego.caminoActual()
   //camino.elegir(camino.derecha())})
-  if (camino.puedeElegir()) { camino.elegir(camino.derecha()) } }) //CAMBIADO: solo si hay opciones en pantalla
+  if (camino.puedeElegir()) { camino.elegir(camino.derecha()) } }) // solo si hay opciones en pantalla
   
 
-  cargaDeOpciones.cargar() //NUEVO: carga las opciones de cada camino
+  cargaDeOpciones.cargar()
   game.addVisual(menu)
 
   game.start()
