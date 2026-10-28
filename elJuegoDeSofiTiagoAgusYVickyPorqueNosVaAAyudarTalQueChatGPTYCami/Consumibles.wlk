@@ -28,6 +28,26 @@ class Consumible{
 const chocolate = new Consumible( nombreArchivo= "choco" , puntosAcademicos =10, puntosEstres=0)
 const bestia = new Consumible(nombreArchivo= "energetica", puntosAcademicos=15, puntosEstres=5) 
 
+//NUEVO: a veces te regalan un objeto (lo llama Camino.presentarOpciones despues de cada eleccion)
+object regalos {
+  const probabilidad = 25 // % de chances de que te regalen algo
+
+  method posibles() = [chocolate, bestia]
+
+  method sortear() {
+    if (0.randomUpTo(100) < probabilidad) { self.regalar(self.posibles().anyOne()) }
+  }
+
+  method regalar(unConsumible) {
+    if (inventario.hayLugar()) {
+      inventario.guardar(unConsumible)
+      game.say(espacio1, "¡Te regalaron un objeto!")
+    } else {
+      game.say(espacio1, "Te querían regalar algo pero el inventario está lleno")
+    }
+  }
+}
+
 object inventario {
   var property items = []
 
