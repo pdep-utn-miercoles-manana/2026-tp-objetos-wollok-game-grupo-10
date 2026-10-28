@@ -1,5 +1,5 @@
 import Consumibles.*
-import menu.*
+import pantallas.*
 import BarraAcad.*
 
  class Camino{
@@ -8,30 +8,52 @@ import BarraAcad.*
     var opciones = []
     const limiteEstres = 100
     const academicoParaAprobar = 70
+    // cada ronda tiene al menos una situacion; la otra nota sale consumible 1 de cada 3 veces (sino, otra situacion)
+    const suertesDeConsumible = [true, false, false]
     var esperandoEleccion = false 
    
 
   method izquierda() = opciones.first()
   method derecha() = opciones.last()
 
+  method elegirIzquierda() { if (self.puedeElegir()) { self.elegir(self.izquierda()) } }
+  method elegirDerecha() { if (self.puedeElegir()) { self.elegir(self.derecha()) } }
+
   method elegir(unLado){
     esperandoEleccion = false //NUEVO
     opciones.forEach({unaOpcion => game.removeVisual(unaOpcion)})
+    self.gastar(unLado) // si elegiste una situacion, esa se gasta; la otra (si habia) queda para mas adelante
     unLado.seleccionado()
   }
 
 
-  method guardarUnoRandom(){
-    var opcion1 = paresDeCaminos.anyOne()
-    paresDeCaminos.remove(opcion1)
-    opciones.add(opcion1)
-    opcionesUsadas.add(opcion1)
+  // una situacion del pozo que todavia no este en pantalla (no la gasta)
+  method situacionAlAzar() = paresDeCaminos.filter({ unaOpcion => not opciones.contains(unaOpcion) }).anyOne()
+
+  // saca la situacion del pozo (solo si todavia esta ahi, asi nunca se gasta dos veces)
+  method gastar(unaSituacion) {
+    if (paresDeCaminos.contains(unaSituacion)) {
+      paresDeCaminos.remove(unaSituacion)
+      opcionesUsadas.add(unaSituacion)
+    }
   }
 
+  // la 2da nota es consumible por suerte, o porque ya no queda otra situacion para mostrar
+  method segundaEsConsumible() = paresDeCaminos.size() < 2 or suertesDeConsumible.anyOne()
+
+  // Cada ronda gasta exactamente UNA situacion, asi siempre son tantas rondas como situaciones hay:
+  //  - situacion + consumible: se gasta la situacion que se muestra (la elijas o no)
+  //  - situacion + situacion:  se gasta solo la que elijas, la otra vuelve a quedar en el pozo
   method generarOpciones() {
     opciones.clear()
-    self.guardarUnoRandom()
-    self.guardarUnoRandom() // abrir la lista opciones y darles la posicon
+    opciones.add(self.situacionAlAzar())
+    if (self.segundaEsConsumible()) {
+      self.gastar(opciones.first())
+      opciones.add(kiosco.consumibleAlAzar())
+    } else {
+      opciones.add(self.situacionAlAzar())
+    }
+    if ([true, false].anyOne()) { opciones = opciones.reverse() } // asi el consumible no cae siempre del mismo lado
     opciones.first().position(nota_rosa.posicionDelTexto())     // F -> nota rosa
     opciones.last().position(nota_amarilla.posicionDelTexto())  // G -> nota amarilla
   }
@@ -47,26 +69,29 @@ import BarraAcad.*
   method agregarOpciones(unasOpciones) { paresDeCaminos.addAll(unasOpciones) }
   method puedeElegir() = esperandoEleccion
 
-  method perdioPorEstres() = barraAcademica.nivelEstres() >= limiteEstres
-  method sinOpciones() = paresDeCaminos.size() < 2 // cada ronda gasta 2 opciones
-  method aprobo() = barraAcademica.nivelAcademico() >= academicoParaAprobar
+  method perdioPorEstres() = barraAcademica.estresAlcanza(limiteEstres)
+  method sinOpciones() = paresDeCaminos.isEmpty() // cada ronda gasta 1 opcion comun (el consumible no se gasta)
+  method aprobo() = barraAcademica.academicoAlcanza(academicoParaAprobar)
 
   // muestra la siguiente ronda de opciones o, si corresponde, termina el juego
   method presentarOpciones() {
     if (self.perdioPorEstres()) {
       self.terminar("¡Perdiste! Te estresaste demasiado")
     } else if (self.sinOpciones()) {
-      if (self.aprobo()) {
-        self.terminar("¡Ganaste! Te quedaste sin opciones pero aprobaste")
-      } else {
-        self.terminar("Perdiste: sin opciones y con poco nivel académico")
-      }
+      self.terminar(self.mensajeSinOpciones())
     } else {
-      if (not opcionesUsadas.isEmpty()) { regalos.sortear() } // en la 1ra ronda no se regala nada
-      self.generarOpciones()
-      opciones.forEach({unaOpcion => game.addVisual(unaOpcion)})
-      esperandoEleccion = true
+      self.mostrarOpciones()
     }
+  }
+
+  method mensajeSinOpciones() =
+    if (self.aprobo()) "¡Ganaste! Te quedaste sin opciones pero aprobaste"
+    else "Perdiste: sin opciones y con poco nivel académico"
+
+  method mostrarOpciones() {
+    self.generarOpciones()
+    opciones.forEach({unaOpcion => game.addVisual(unaOpcion)})
+    esperandoEleccion = true
   }
 
   method terminar(mensaje) {
@@ -97,14 +122,21 @@ const nota_amarilla = new Nota(color = "amarilla", position = game.at(12,3))
 
 object modoDeJuego {
     var caminoActual = caminoFacil
-    method cambiarA(unCamino){ caminoActual = unCamino
-    unCamino.presentarOpciones() //NUEVO: arranca la partida
-    game.removeVisual(menu)}
+    method cambiarA(unCamino){
+      if (menu.estaMostrandose()) {
+        caminoActual = unCamino
+        menu.ocultar()
+        instructivo.mostrar({ self.siguienteRonda() })
+      }
+    }
+
+    method siguienteRonda() { caminoActual.presentarOpciones() }
 
     method caminoActual() = caminoActual
 
     method resetear(){
         caminoActual.reiniciar()
+        inventario.vaciar() // el inventario no pasa de una partida a la otra
     }
 
 }
@@ -121,8 +153,7 @@ class Opcion{
   var mostrandoResultado = false 
 
   method seleccionado(){
-     barraAcademica.modificarNivelAcademico(puntosAcademicos)
-     barraAcademica.modificarNivelEstres(puntosEstres)
+     barraAcademica.aplicar(puntosAcademicos, puntosEstres)
      mostrandoResultado = true // el texto que se dibuja es el resultado
      game.addVisual(self) 
      game.schedule(tiempoDeLectura, { self.seguir() }) 
@@ -134,7 +165,7 @@ class Opcion{
   method seguir() {
      game.removeVisual(self)
      mostrandoResultado = false
-     modoDeJuego.caminoActual().presentarOpciones()
+     modoDeJuego.siguienteRonda()
   }
 
   //method position(x,y) =game.at(x,y)

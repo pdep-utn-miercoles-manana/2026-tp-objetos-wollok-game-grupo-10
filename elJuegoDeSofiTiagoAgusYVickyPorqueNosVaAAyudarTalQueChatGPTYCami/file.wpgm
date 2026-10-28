@@ -4,7 +4,6 @@ import Consumibles.*
 import BarraAcad.*
 import boton.*
 import Caminos.*
-import menu.*
 import Opciones.*
 
 program juego {
@@ -29,19 +28,12 @@ program juego {
 
   keyboard.b().onPressDo({inventario.consumir()})
 
-  keyboard.f().onPressDo({
-  const camino = modoDeJuego.caminoActual()
-  //camino.elegir(camino.izquierda())})
-  if (camino.puedeElegir()) { camino.elegir(camino.izquierda()) } }) //solo si hay opciones en pantalla
-
-  keyboard.g().onPressDo({
-  const camino = modoDeJuego.caminoActual()
-  //camino.elegir(camino.derecha())})
-  if (camino.puedeElegir()) { camino.elegir(camino.derecha()) } }) // solo si hay opciones en pantalla
+  keyboard.f().onPressDo({modoDeJuego.caminoActual().elegirIzquierda()})
+  keyboard.g().onPressDo({modoDeJuego.caminoActual().elegirDerecha()})
   
 
   cargaDeOpciones.cargar()
-  game.addVisual(menu)
+  menu.mostrar()
 
   game.start()
 }

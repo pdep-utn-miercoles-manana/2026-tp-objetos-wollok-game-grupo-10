@@ -1,10 +1,6 @@
 import Caminos.*
 
-//NUEVO: las opciones de cada camino.
-//Mientras mas dificil el camino, mas estres suma cada opcion (extraEstres).
-//Los numeros son de ejemplo: ajustalos para balancear el juego.
-//NUEVO: nombre = nombre de las imagenes en assets/textos (<nombre>_opcion.png y <nombre>_resultado.png).
-//Si agregan o cambian una opcion, regeneren las imagenes con: python herramientas/generarTextos.py
+
 object cargaDeOpciones {
 
   method cargar() {

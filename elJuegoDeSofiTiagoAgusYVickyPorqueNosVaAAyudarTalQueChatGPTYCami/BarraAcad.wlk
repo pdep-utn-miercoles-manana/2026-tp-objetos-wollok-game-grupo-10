@@ -1,5 +1,5 @@
 import Caminos.*
-import menu.*
+import pantallas.*
 
 
 
@@ -16,6 +16,14 @@ import menu.*
   method modificarNivelAcademico(puntos) { nivelAcademico = self.limitar(nivelAcademico + puntos) }
   method modificarNivelEstres(puntos) { nivelEstres = self.limitar(nivelEstres + puntos) }
 
+  method aplicar(puntosAcademicos, puntosEstres) {
+    self.modificarNivelAcademico(puntosAcademicos)
+    self.modificarNivelEstres(puntosEstres)
+  }
+
+  method estresAlcanza(limite) = nivelEstres >= limite
+  method academicoAlcanza(minimo) = nivelAcademico >= minimo
+
   method reiniciar(){
       nivelAcademico = 0
       nivelEstres = 0
@@ -23,10 +31,9 @@ import menu.*
   method image() = "cerebros/Cerebro" + (nivelAcademico.div(10)) + ".gif" //Hay que aplicar en afectar
 
   method terminar() {
-      nivelAcademico = 0
-      nivelEstres = 0
+      self.reiniciar()
       modoDeJuego.resetear()
-      game.addVisual(menu)
+      menu.mostrar()
   }
   
 
