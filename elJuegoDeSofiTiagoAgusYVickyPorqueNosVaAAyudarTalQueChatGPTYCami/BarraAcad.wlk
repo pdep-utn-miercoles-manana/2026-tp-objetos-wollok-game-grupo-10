@@ -19,6 +19,7 @@ import pantallas.*
   method aplicar(puntosAcademicos, puntosEstres) {
     self.modificarNivelAcademico(puntosAcademicos)
     self.modificarNivelEstres(puntosEstres)
+    alertaEstres.actualizar() // si el estres esta alto, avisa
   }
 
   method estresAlcanza(limite) = nivelEstres >= limite
@@ -27,8 +28,9 @@ import pantallas.*
   method reiniciar(){
       nivelAcademico = 0
       nivelEstres = 0
+      alertaEstres.actualizar()
   }
-  method image() = "cerebros/Cerebro" + (nivelAcademico.div(10)) + ".gif" //Hay que aplicar en afectar
+  method image() = "cerebros/Cerebro" + (nivelAcademico.div(2)) + ".gif" // 51 cerebros: uno cada 2 puntos (0 a 100)
 
   method terminar() {
       self.reiniciar()
@@ -37,4 +39,25 @@ import pantallas.*
   }
   
 
+}
+
+// Icono de peligro: aparece cuando el estres empieza a subir mucho y se pone rojo cuando esta por llegar al limite.
+object alertaEstres {
+  const property position = game.at(26.5, 5.5)
+  const nivelPeligro = 60
+  const nivelCritico = 80
+
+  method image() =
+    if (barraAcademica.estresAlcanza(nivelCritico)) "alerta_critica.gif"
+    else "alerta_peligro.gif"
+
+  method debeMostrarse() = barraAcademica.estresAlcanza(nivelPeligro)
+
+  method actualizar() {
+    if (self.debeMostrarse() and not game.hasVisual(self)) {
+      game.addVisual(self)
+    } else if (not self.debeMostrarse() and game.hasVisual(self)) {
+      game.removeVisual(self)
+    }
+  }
 }
