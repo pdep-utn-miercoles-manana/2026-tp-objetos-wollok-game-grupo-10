@@ -5,8 +5,6 @@ object personaje {
 }
 
 // Una pantalla es una imagen que tapa el juego y que se muestra / se saca.
-// El menu y el instructivo se comportan igual, por eso comparten esta clase
-// y la logica de mostrar/ocultar vive en un solo lugar.
 class Pantalla {
   const property position = game.origin()
   const imagen
@@ -18,15 +16,13 @@ class Pantalla {
   method estaMostrandose() = game.hasVisual(self)
 }
 
-object menu inherits Pantalla(imagen = "menuTrucho.png", position = game.at(0, -2)) {} // antes estaba en menu.wlk
+// Una pantalla que se saca sola despues de un rato y avisa que termino.
+class PantallaTemporal inherits Pantalla {
+  const duracion
 
-object instructivo inherits Pantalla(imagen = "instructivo.png") {
-  const tiempoDeLectura = 12000
-
-  // lo muestra y, pasado el tiempo de lectura, lo saca y avisa que termino
   method mostrar(alTerminar) {
     self.mostrar()
-    game.schedule(tiempoDeLectura, { self.cerrar(alTerminar) })
+    game.schedule(duracion, { self.cerrar(alTerminar) })
   }
 
   method cerrar(alTerminar) {
@@ -34,3 +30,9 @@ object instructivo inherits Pantalla(imagen = "instructivo.png") {
     alTerminar.apply()
   }
 }
+
+object menu inherits Pantalla(imagen = "menu.png") {}
+
+object instructivo inherits PantallaTemporal(imagen = "instructivo.png", duracion = 12000) {}
+
+object avisoDeExamen inherits PantallaTemporal(imagen = "avisoDeExamen.png", duracion = 4000) {}

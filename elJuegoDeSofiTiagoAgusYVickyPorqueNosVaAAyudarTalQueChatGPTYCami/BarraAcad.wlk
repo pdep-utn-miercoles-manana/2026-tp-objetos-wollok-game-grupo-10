@@ -22,6 +22,8 @@ import pantallas.*
     alertaEstres.actualizar() // si el estres esta alto, avisa
   }
 
+  method asegurarNivel(minimo) { nivelAcademico = nivelAcademico.max(minimo) }
+
   method estresAlcanza(limite) = nivelEstres >= limite
   method academicoAlcanza(minimo) = nivelAcademico >= minimo
 
@@ -30,7 +32,7 @@ import pantallas.*
       nivelEstres = 0
       alertaEstres.actualizar()
   }
-  method image() = "cerebros/Cerebro" + (nivelAcademico.div(2)) + ".gif" // 51 cerebros: uno cada 2 puntos (0 a 100)
+  method image() = "cerebros/Cerebro" + (nivelAcademico.div(2)) + ".png" // 51 cerebros: uno cada 2 puntos (0 a 100)
 
   method terminar() {
       self.reiniciar()
@@ -43,7 +45,7 @@ import pantallas.*
 
 // Icono de peligro: aparece cuando el estres empieza a subir mucho y se pone rojo cuando esta por llegar al limite.
 object alertaEstres {
-  const property position = game.at(26.5, 5.5)
+  const property position = game.at(26, 5.5)
   const nivelPeligro = 60
   const nivelCritico = 80
 

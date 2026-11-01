@@ -1,7 +1,7 @@
 import Consumibles.*
 import pantallas.*
 import BarraAcad.*
-import segundaParte.*
+import Combate.*
 
  class Camino{
     var paresDeCaminos=[]
@@ -42,9 +42,7 @@ import segundaParte.*
   // la 2da nota es consumible por suerte, o porque ya no queda otra situacion para mostrar
   method segundaEsConsumible() = paresDeCaminos.size() < 2 or suertesDeConsumible.anyOne()
 
-  // Cada ronda gasta exactamente UNA situacion, asi siempre son tantas rondas como situaciones hay:
-  //  - situacion + consumible: se gasta la situacion que se muestra (la elijas o no)
-  //  - situacion + situacion:  se gasta solo la que elijas, la otra vuelve a quedar en el pozo
+
   method generarOpciones() {
     opciones.clear()
     opciones.add(self.situacionAlAzar())
@@ -72,7 +70,7 @@ import segundaParte.*
 
   method perdioPorEstres() = barraAcademica.estresAlcanza(limiteEstres)
   method sinOpciones() = opcionesUsadas.size() >= rondasPorPartida or paresDeCaminos.isEmpty() // cada ronda gasta 1 situacion (el consumible no se gasta)
-  // terminada la preparacion arranca la batalla contra el examen (ver segundaParte.wlk)
+  // terminada la preparacion arranca la batalla contra el examen (ver Combate.wlk)
   method alTerminarRondas() { modoDeJuego.empezarBatalla() }
 
   // muestra la siguiente ronda de opciones o, si corresponde, termina el juego
@@ -120,7 +118,7 @@ const nota_amarilla = new Nota(color = "amarilla", position = game.at(12,3))
 
 object modoDeJuego {
     var caminoActual = caminoFacil
-    var faseActual = caminoFacil // el camino de preparacion o, despues, la batalla: los dos entienden F / G
+    var faseActual = caminoFacil 
     method cambiarA(unCamino){
       if (menu.estaMostrandose()) {
         caminoActual = unCamino

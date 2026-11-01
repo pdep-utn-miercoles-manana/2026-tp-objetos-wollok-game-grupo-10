@@ -5,7 +5,9 @@ import BarraAcad.*
 import boton.*
 import Caminos.*
 import Opciones.*
-import segundaParte.*
+import ExamenFinal.*
+import Desafios.*
+import Combate.*
 
 program juego {
   game.width(32)
