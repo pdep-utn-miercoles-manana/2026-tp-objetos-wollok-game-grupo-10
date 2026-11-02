@@ -96,7 +96,7 @@ import Combate.*
   }
 }
 
-const caminoFacil = new Camino () //Intentar De lograr modo historia y random
+const caminoFacil = new Camino () 
 
 const caminoMedio = new Camino ()
 

@@ -8,6 +8,7 @@ import Opciones.*
 import ExamenFinal.*
 import Desafios.*
 import Combate.*
+import Historia.*
 
 program juego {
   game.width(32)
@@ -16,7 +17,7 @@ program juego {
   game.title("Juego")
 
   
-  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoFacil)}) // esto es para elegir al dificultad
+  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoHistoria)}) // esto es para elegir al dificultad
   keyboard.num2().onPressDo({modoDeJuego.cambiarA(caminoMedio) }) 
   keyboard.num3().onPressDo({modoDeJuego.cambiarA(caminoDificil)})
 
@@ -37,6 +38,7 @@ program juego {
 
   cargaDeOpciones.cargar()
   cargaDeBatalla.cargar()
+  cargaDeHistoria.cargar()
   menu.mostrar()
 
   game.start()
