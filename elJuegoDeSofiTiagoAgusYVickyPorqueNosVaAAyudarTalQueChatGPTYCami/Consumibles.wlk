@@ -25,7 +25,7 @@ const chocolate = new Consumible(nombreArchivo = "choco", puntosAcademicos = 10,
 const bestia = new Consumible(nombreArchivo = "energetica", puntosAcademicos = 15, puntosEstres = -20) // la energetica te baja el estres
 
 // De aca sale el consumible que se ofrece como UNA de las dos opciones de una ronda.
-object kiosco {
+object kiosco { // mejor nombre, mas especifico
   method consumibles() = [chocolate, bestia]
 
   method consumibleAlAzar() = self.consumibles().anyOne()
