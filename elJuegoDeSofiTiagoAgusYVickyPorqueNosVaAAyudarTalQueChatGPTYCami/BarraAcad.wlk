@@ -1,16 +1,15 @@
-import Caminos.*
+import wollok.game.*
 import pantallas.*
 
-
-
- object barraAcademica{
+object barraAcademica {
   var property position = game.at(27, 14.2)
   var nivelAcademico = 0
   var nivelEstres = 0
 
   method nivelAcademico() = nivelAcademico
   method nivelEstres() = nivelEstres
-//para que no se pase de 100 ni negativo
+
+  // para que no se pase de 100 ni sea negativo
   method limitar(valor) = valor.max(0).min(100)
 
   method modificarNivelAcademico(puntos) { nivelAcademico = self.limitar(nivelAcademico + puntos) }
@@ -27,20 +26,13 @@ import pantallas.*
   method estresAlcanza(limite) = nivelEstres >= limite
   method academicoAlcanza(minimo) = nivelAcademico >= minimo
 
-  method reiniciar(){
-      nivelAcademico = 0
-      nivelEstres = 0
-      alertaEstres.actualizar()
+  method reiniciar() {
+    nivelAcademico = 0
+    nivelEstres = 0
+    alertaEstres.actualizar()
   }
-  method image() = "cerebros/Cerebro" + (nivelAcademico.div(2)) + ".png" // 51 cerebros: uno cada 2 puntos (0 a 100)
 
-  method terminar() {
-      self.reiniciar()
-      modoDeJuego.resetear()
-      menu.mostrar()
-  }
-  
-
+  method image() = "cerebros/Cerebro" + nivelAcademico.div(2) + ".png" // 51 cerebros: uno cada 2 puntos (0 a 100)
 }
 
 // Icono de peligro: aparece cuando el estres empieza a subir mucho y se pone rojo cuando esta por llegar al limite.
@@ -56,10 +48,6 @@ object alertaEstres {
   method debeMostrarse() = barraAcademica.estresAlcanza(nivelPeligro)
 
   method actualizar() {
-    if (self.debeMostrarse() and not game.hasVisual(self)) {
-      game.addVisual(self)
-    } else if (not self.debeMostrarse() and game.hasVisual(self)) {
-      game.removeVisual(self)
-    }
+    if (self.debeMostrarse()) visuales.mostrar([self]) else visuales.ocultar([self])
   }
 }

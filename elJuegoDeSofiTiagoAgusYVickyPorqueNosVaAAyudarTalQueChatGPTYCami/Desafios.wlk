@@ -1,3 +1,6 @@
+import wollok.game.*
+import pantallas.*
+import Modos.*
 import Combate.*
 
 // El texto que se ve sobre una nota (rosa = F, amarilla = G)
@@ -10,26 +13,24 @@ class Cartel {
 }
 
 class Desafio {
-  method carteles() = []
-  method danio() = 0
+  method carteles()
+  method danio()
 
   method apretoF() {}
   method apretoG() {}
 
-  method mostrar() { self.carteles().forEach({ unCartel => game.addVisual(unCartel) }) }
-  method ocultar() {
-    self.carteles().forEach({ unCartel => if (game.hasVisual(unCartel)) { game.removeVisual(unCartel) } })
-  }
+  method mostrar() { visuales.mostrar(self.carteles()) }
+  method ocultar() { visuales.ocultar(self.carteles()) }
 
   method acertar() { batalla.acierto(self.danio()) }
   method errar() { batalla.error() }
 }
 
-// Dos respuestas: una en F y otra en G. Hay que elegir la correcta.
 class Pregunta inherits Desafio {
-  const izquierda
-  const derecha
+  const nombre
   const correctaEsF
+  const izquierda = new Cartel(imagen = "batalla/" + nombre + "_F.png", nota = nota_rosa)
+  const derecha = new Cartel(imagen = "batalla/" + nombre + "_G.png", nota = nota_amarilla)
 
   override method carteles() = [izquierda, derecha]
   override method danio() = 20
@@ -42,10 +43,10 @@ class Pregunta inherits Desafio {
   }
 }
 
-// Hay que apretar F muchas veces seguidas.
 class Rafaga inherits Desafio {
-  const cartel
+  const nombre
   const toques
+  const cartel = new Cartel(imagen = "batalla/" + nombre + ".png", nota = nota_rosa)
   var cuenta = 0
 
   override method carteles() = [cartel]
