@@ -157,3 +157,8 @@
 {"level":"info","message":"🚀 Program executed \u001b[3m\u001b[34mfile.juego\u001b[39m\u001b[23m on \u001b[3m\u001b[34mc:\\JUEGO\\2026-tp-objetos-wollok-game-grupo-10\\2026-tp-objetos-wollok-game-grupo-10\\codigo\u001b[39m\u001b[23m","ok":true,"timeElapsed":339,"timestamp":"2026-11-03T21:06:23.596Z"}
 {"exitCode":"SIGINT","level":"info","message":"👾 Game executed file.juego on c:\\JUEGO\\2026-tp-objetos-wollok-game-grupo-10\\2026-tp-objetos-wollok-game-grupo-10\\codigo","timeElapsed":42114,"timestamp":"2026-11-03T21:07:05.370Z"}
 {"level":"info","message":"⌛ Building environment","timeElapsed":123,"timestamp":"2026-11-03T21:08:19.939Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":110,"timestamp":"2026-11-03T21:45:52.538Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":103,"timestamp":"2026-11-03T21:45:52.659Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":101,"timestamp":"2026-11-03T21:45:52.760Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":103,"timestamp":"2026-11-03T21:45:52.866Z"}
+{"level":"info","message":"⌛ Building environment","timeElapsed":101,"timestamp":"2026-11-03T21:45:55.580Z"}

@@ -200,7 +200,7 @@ object historia inherits Modo(notas = [nota_rosa_chica, nota_amarilla_chica]) {
       derecha = new Opcion(nombre = "enSilencio", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "joda",
-      izquierda = new Opcion(nombre = "irseDeJoda", puntosEstres = -66),
+      izquierda = new Opcion(nombre = "irseDeJoda", puntosEstres = -100), // BORRAR ESTRES: la barra no baja de 0
       derecha = new Opcion(nombre = "quedarseEstudiando", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "chocolatito",
@@ -213,7 +213,7 @@ object historia inherits Modo(notas = [nota_rosa_chica, nota_amarilla_chica]) {
 
     new Situacion(nombre = "diaAnterior",
       izquierda = new Opcion(nombre = "estudiarTodoElDia", puntosAcademicos = 30, puntosEstres = 66),
-      derecha = new Opcion(nombre = "descansar", puntosEstres = -66))
+      derecha = new Opcion(nombre = "descansar", puntosEstres = -100)) // BORRAR ESTRES: la barra no baja de 0
   ]
 
   override method quedanRondas() = rondasJugadas < situaciones.size()
