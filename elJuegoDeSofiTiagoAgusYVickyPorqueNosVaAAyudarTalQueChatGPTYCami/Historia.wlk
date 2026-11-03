@@ -171,6 +171,9 @@ const caminoHistoria = new CaminoHistoria()
 
 
 object cargaDeHistoria {
+  // en la historia el estres pega fuerte: cada vez que sube, sube un tercio de la barra.
+  // Es 34 y no 33 para que con 3 subas llegue al limite (100) y pierdas.
+  const unTercioDeEstres = 33
 
   method cargar() {
     caminoHistoria.agregarSituaciones([
@@ -181,7 +184,7 @@ object cargaDeHistoria {
       self.situacion("madrugar",
         new OpcionHistoria(nombre = "dormirMas", descripcion = "Dormir un poco más para estudiar más concentrad@",
           resultado = "TARDE: te volviste a dormir, el teléfono tenía 2% de batería y te despertaste a las 16:00.",
-          puntosEstres = 10),
+          puntosEstres = unTercioDeEstres),
         new OpcionHistoria(nombre = "levantarse", descripcion = "Forzarte a levantarte aunque no entiendas muchos conceptos",
           resultado = "TEMPRANO: mate, galletitas de agua y 2 horas sin saber cómo despejar 2x = 3.",
           puntosAcademicos = 10)),
@@ -189,7 +192,7 @@ object cargaDeHistoria {
       self.situacion("descanso",
         new OpcionHistoria(nombre = "cincoMinutos", descripcion = "Usar 5 minutos de celular",
           resultado = "5 MINUTOS: volviste a estudiar, pero no descansaste nada por sobreestimularte viendo el tung.",
-          puntosAcademicos = 20, puntosEstres = 10),
+          puntosAcademicos = 20, puntosEstres = unTercioDeEstres),
         new OpcionQueDaConsumible(nombre = "treintaMinutos", descripcion = "30 minutos de cosas útiles",
           resultado = "30 MINUTOS: hiciste las tareas de la casa, volviste al estudio recargad@ y te compraste una bebida en el supermercado.",
           puntosAcademicos = 10, consumible = bestia, insigniaDelConsumible = "energetica")),
@@ -200,14 +203,14 @@ object cargaDeHistoria {
           puntosAcademicos = 10),
         new OpcionHistoria(nombre = "enSilencio", descripcion = "Como dice tu viejo: en silencio y soledad",
           resultado = "SILENCIO: te funcionó bastante, pero la ansiedad que te generó no tiene nombre.",
-          puntosAcademicos = 20, puntosEstres = 10)),
+          puntosAcademicos = 20, puntosEstres = unTercioDeEstres)),
 
       self.situacion("joda",
         new OpcionQueBorraEstres(nombre = "irseDeJoda", descripcion = "Irte de joda para desestresar",
           resultado = "IRSE DE JODA: efectivamente te desestresaste."),
         new OpcionHistoria(nombre = "quedarseEstudiando", descripcion = "Ser responsable y quedarte con los diagramas de contexto",
           resultado = "QUEDARSE ESTUDIANDO: te sentís un erudito, pero las historias de tus amigos se ven bastante divertidas...",
-          puntosAcademicos = 20, puntosEstres = 10))
+          puntosAcademicos = 20, puntosEstres = unTercioDeEstres))
     ])
   }
 

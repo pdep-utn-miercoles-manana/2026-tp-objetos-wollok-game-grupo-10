@@ -20,7 +20,7 @@ class Consumible{
  }
 
 const chocolate = new Consumible( nombreArchivo= "choco" , puntosAcademicos =10, puntosEstres=0)
-const bestia = new Consumible(nombreArchivo= "energetica", puntosAcademicos=15, puntosEstres=5) 
+const bestia = new Consumible(nombreArchivo= "energetica", puntosAcademicos=15, puntosEstres=-20) // la energetica te baja el estres
 
 // De aca sale el consumible que se ofrece como UNA de las dos opciones de cada ronda.
 // Si lo elegis, Consumible.seleccionado() lo guarda en el inventario.
