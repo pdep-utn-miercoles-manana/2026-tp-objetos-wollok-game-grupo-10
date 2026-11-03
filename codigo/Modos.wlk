@@ -87,7 +87,7 @@ class Situacion inherits Ronda {
 // ---------------------------------------------------------------------
 class Modo {
   const notas                    // las dos notas sobre las que van las opciones (F y G)
-  const limiteEstres = 90
+  const limiteEstres = 100
   const tiempoMinimoDeLectura = 1000
   var rondasJugadas = 0
   var rondaActual = null
