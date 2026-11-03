@@ -38,32 +38,22 @@ class Opcion {
   method aplicarEfecto() { barraAcademica.aplicar(puntosAcademicos, puntosEstres) }
   method volverAEmpezar() { mostrandoResultado = false }
 
-  // las insignias que se ven abajo del resultado en la historia. Son las consecuencias
-  method insignias() = self.insigniaDe("conocimiento_" + puntosAcademicos, puntosAcademicos) + self.insigniaDe(self.archivoDeEstres(), puntosEstres)
-  method archivoDeEstres() = if (puntosEstres > 0) "estres" else "estres_bajo"
-  method insigniaDe(archivo, puntos) = if (puntos == 0) [] else [new Insignia(archivo = archivo)]
-}
-
-// Te borra todo el estres
-class OpcionQueBorraEstres inherits Opcion {
-  override method aplicarEfecto() {
-    super()
-    barraAcademica.borrarEstres()
-  }
-  override method insignias() = super() + [new Insignia(archivo = "estres_borrado")]
+  // el texto que aparece en la historia: que subio y que bajo
+  method resumen() = (self.cambio("conocimiento", puntosAcademicos) + self.cambio("estrés", puntosEstres)).join(" ")
+  method cambio(algo, puntos) =
+    if (puntos > 0) ["¡Subió tu " + algo + "!"]
+    else if (puntos < 0) ["¡Bajó tu " + algo + "!"]
+    else []
 }
 
 // Ademas de los puntos, te guarda un consumible en el inventario
 class OpcionQueDaConsumible inherits Opcion {
   const consumible
-  const insigniaDelConsumible
 
   override method aplicarEfecto() {
     super()
     inventario.guardar(consumible)
   }
-
-  override method insignias() = super() + [new Insignia(archivo = insigniaDelConsumible)]
 }
 
 // Solo da contexto: no suma ni resta nada y pasa directo a la proxima ronda
@@ -203,42 +193,37 @@ object historia inherits Modo(notas = [nota_rosa_chica, nota_amarilla_chica]) {
 
     new Situacion(nombre = "descanso",
       izquierda = new Opcion(nombre = "cincoMinutos", puntosAcademicos = 20, puntosEstres = 33),
-      derecha = new OpcionQueDaConsumible(nombre = "treintaMinutos", puntosAcademicos = 10, consumible = bestia, insigniaDelConsumible = "energetica")),
+      derecha = new OpcionQueDaConsumible(nombre = "treintaMinutos", puntosAcademicos = 10, consumible = bestia)),
 
     new Situacion(nombre = "musica",
       izquierda = new Opcion(nombre = "conMusica", puntosAcademicos = 10),
       derecha = new Opcion(nombre = "enSilencio", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "joda",
-      izquierda = new OpcionQueBorraEstres(nombre = "irseDeJoda"),
+      izquierda = new Opcion(nombre = "irseDeJoda", puntosEstres = -66),
       derecha = new Opcion(nombre = "quedarseEstudiando", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "chocolatito",
-      izquierda = new OpcionQueDaConsumible(nombre = "comprarChocolatito", consumible = chocolate, insigniaDelConsumible = "chocolate"),
+      izquierda = new OpcionQueDaConsumible(nombre = "comprarChocolatito", consumible = chocolate),
       derecha = new Opcion(nombre = "noComprarChocolatito", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "amigas",
-      izquierda = new OpcionQueDaConsumible(nombre = "conAmigas", puntosAcademicos = 10, puntosEstres = -33, consumible = chocolate, insigniaDelConsumible = "chocolate"),
+      izquierda = new OpcionQueDaConsumible(nombre = "conAmigas", puntosAcademicos = 10, puntosEstres = -33, consumible = chocolate),
       derecha = new Opcion(nombre = "seguirSolo", puntosAcademicos = 20, puntosEstres = 33)),
 
     new Situacion(nombre = "diaAnterior",
       izquierda = new Opcion(nombre = "estudiarTodoElDia", puntosAcademicos = 30, puntosEstres = 66),
-      derecha = new OpcionQueBorraEstres(nombre = "descansar"))
+      derecha = new Opcion(nombre = "descansar", puntosEstres = -66))
   ]
 
   override method quedanRondas() = rondasJugadas < situaciones.size()
   override method siguienteRonda() = situaciones.get(rondasJugadas)
 
-  // en la historia el resultado es un cartel grande con insignias abajo
+  // en la historia el resultado es un cartel grande y un globito que dice que cambio
   override method mostrarResultado(unaOpcion) {
     unaOpcion.position(posicionDelResultado)
     super(unaOpcion)
-    filaDeInsignias.mostrar(unaOpcion.insignias())
-  }
-
-  override method sacarResultado() {
-    filaDeInsignias.ocultar()
-    super()
+    if (unaOpcion.resumen() != "") game.say(unaOpcion, unaOpcion.resumen())
   }
 }
 
@@ -344,38 +329,5 @@ object modoDeJuego {
     inventario.vaciar()     // el inventario no pasa de una partida a la otra
     faseActual = menu
     menu.mostrar()
-  }
-}
-
-
-// ---------------------------------------------------------------------
-//  Insignias: lo que ganaste / perdiste, abajo del resultado de la historia
-// ---------------------------------------------------------------------
-class Insignia {
-  const archivo
-  var property position = game.origin()
-
-  method image() = "historia/" + archivo + ".png"
-}
-
-object filaDeInsignias {
-  const insignias = []
-  const centro = 13
-  const altura = 6
-  const ancho = 8
-
-  method mostrar(unasInsignias) {
-    insignias.addAll(unasInsignias)
-    var x = centro - insignias.size() * ancho / 2
-    insignias.forEach({ unaInsignia =>
-      unaInsignia.position(game.at(x, altura))
-      x += ancho
-    })
-    visuales.mostrar(insignias)
-  }
-
-  method ocultar() {
-    visuales.ocultar(insignias)
-    insignias.clear()
   }
 }

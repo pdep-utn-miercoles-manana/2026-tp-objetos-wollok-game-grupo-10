@@ -18,11 +18,6 @@ object barraAcademica {
     alertaEstres.actualizar() // si el estres esta alto, avisa
   }
 
-  method borrarEstres() {
-    nivelEstres = 0
-    alertaEstres.actualizar()
-  }
-
   method asegurarNivel(minimo) { nivelAcademico = nivelAcademico.max(minimo) }
 
   method estresAlcanza(limite) = nivelEstres >= limite
@@ -30,7 +25,8 @@ object barraAcademica {
 
   method reiniciar() {
     nivelAcademico = 0
-    self.borrarEstres()
+    nivelEstres = 0
+    alertaEstres.actualizar()
   }
 
   method image() = "cerebros/Cerebro" + nivelAcademico.div(2) + ".png" // 51 cerebros: uno cada 2 puntos (0 a 100)
