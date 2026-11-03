@@ -1,16 +1,17 @@
 import Consumibles.*
 import pantallas.*
 import BarraAcad.*
+import Combate.*
 
  class Camino{
     var paresDeCaminos=[]
     var opcionesUsadas= []
     var opciones = []
     const limiteEstres = 100
-    const academicoParaAprobar = 70
     // cada ronda tiene al menos una situacion; la otra nota sale consumible 1 de cada 3 veces (sino, otra situacion)
     const suertesDeConsumible = [true, false, false]
     var esperandoEleccion = false 
+    const rondasPorPartida = 12 // el pozo tiene muchas situaciones, pero cada partida juega solo 12
    
 
   method izquierda() = opciones.first()
@@ -41,9 +42,7 @@ import BarraAcad.*
   // la 2da nota es consumible por suerte, o porque ya no queda otra situacion para mostrar
   method segundaEsConsumible() = paresDeCaminos.size() < 2 or suertesDeConsumible.anyOne()
 
-  // Cada ronda gasta exactamente UNA situacion, asi siempre son tantas rondas como situaciones hay:
-  //  - situacion + consumible: se gasta la situacion que se muestra (la elijas o no)
-  //  - situacion + situacion:  se gasta solo la que elijas, la otra vuelve a quedar en el pozo
+
   method generarOpciones() {
     opciones.clear()
     opciones.add(self.situacionAlAzar())
@@ -70,23 +69,20 @@ import BarraAcad.*
   method puedeElegir() = esperandoEleccion
 
   method perdioPorEstres() = barraAcademica.estresAlcanza(limiteEstres)
-  method sinOpciones() = paresDeCaminos.isEmpty() // cada ronda gasta 1 opcion comun (el consumible no se gasta)
-  method aprobo() = barraAcademica.academicoAlcanza(academicoParaAprobar)
+  method sinOpciones() = opcionesUsadas.size() >= rondasPorPartida or paresDeCaminos.isEmpty() // cada ronda gasta 1 situacion (el consumible no se gasta)
+  // terminada la preparacion arranca la batalla contra el examen (ver Combate.wlk)
+  method alTerminarRondas() { modoDeJuego.empezarBatalla() }
 
   // muestra la siguiente ronda de opciones o, si corresponde, termina el juego
   method presentarOpciones() {
     if (self.perdioPorEstres()) {
       self.terminar("¡Perdiste! Te estresaste demasiado")
     } else if (self.sinOpciones()) {
-      self.terminar(self.mensajeSinOpciones())
+      self.alTerminarRondas()
     } else {
       self.mostrarOpciones()
     }
   }
-
-  method mensajeSinOpciones() =
-    if (self.aprobo()) "¡Ganaste! Te quedaste sin opciones pero aprobaste"
-    else "Perdiste: sin opciones y con poco nivel académico"
 
   method mostrarOpciones() {
     self.generarOpciones()
@@ -100,7 +96,7 @@ import BarraAcad.*
   }
 }
 
-const caminoFacil = new Camino () //Intentar De lograr modo historia y random
+const caminoFacil = new Camino () 
 
 const caminoMedio = new Camino ()
 
@@ -122,20 +118,36 @@ const nota_amarilla = new Nota(color = "amarilla", position = game.at(12,3))
 
 object modoDeJuego {
     var caminoActual = caminoFacil
+    var faseActual = caminoFacil 
     method cambiarA(unCamino){
       if (menu.estaMostrandose()) {
         caminoActual = unCamino
+        faseActual = instructivo // mientras esta el instructivo, F y G le llegan a el
         menu.ocultar()
-        instructivo.mostrar({ self.siguienteRonda() })
+        instructivo.mostrar({ self.empezarPartida() })
       }
     }
 
-    method siguienteRonda() { caminoActual.presentarOpciones() }
+    // al apretar F o G en el instructivo arranca la primera ronda
+    method empezarPartida() {
+      faseActual = caminoActual
+      self.siguienteRonda()
+    }
+
+    method siguienteRonda() { faseActual.presentarOpciones() }
+
+    method faseActual() = faseActual
+
+    method empezarBatalla() {
+      faseActual = batalla
+      batalla.comenzar()
+    }
 
     method caminoActual() = caminoActual
 
     method resetear(){
         caminoActual.reiniciar()
+        faseActual = caminoActual
         inventario.vaciar() // el inventario no pasa de una partida a la otra
     }
 

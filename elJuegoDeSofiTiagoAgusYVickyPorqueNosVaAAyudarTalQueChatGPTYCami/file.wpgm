@@ -5,6 +5,10 @@ import BarraAcad.*
 import boton.*
 import Caminos.*
 import Opciones.*
+import ExamenFinal.*
+import Desafios.*
+import Combate.*
+import Historia.*
 
 program juego {
   game.width(32)
@@ -13,7 +17,7 @@ program juego {
   game.title("Juego")
 
   
-  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoFacil)}) // esto es para elegir al dificultad
+  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoHistoria)}) // esto es para elegir al dificultad
   keyboard.num2().onPressDo({modoDeJuego.cambiarA(caminoMedio) }) 
   keyboard.num3().onPressDo({modoDeJuego.cambiarA(caminoDificil)})
 
@@ -28,11 +32,13 @@ program juego {
 
   keyboard.b().onPressDo({inventario.consumir()})
 
-  keyboard.f().onPressDo({modoDeJuego.caminoActual().elegirIzquierda()})
-  keyboard.g().onPressDo({modoDeJuego.caminoActual().elegirDerecha()})
+  keyboard.f().onPressDo({modoDeJuego.faseActual().elegirIzquierda()})
+  keyboard.g().onPressDo({modoDeJuego.faseActual().elegirDerecha()})
   
 
   cargaDeOpciones.cargar()
+  cargaDeBatalla.cargar()
+  cargaDeHistoria.cargar()
   menu.mostrar()
 
   game.start()
