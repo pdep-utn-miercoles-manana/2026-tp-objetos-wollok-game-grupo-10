@@ -31,8 +31,34 @@ class PantallaTemporal inherits Pantalla {
   }
 }
 
+// Una pantalla que se queda hasta que apretes F o G, y ahi avisa que termino.
+// Mientras se muestra es la fase actual del juego, asi que le llegan las teclas F y G.
+class PantallaQueEsperaTecla inherits Pantalla {
+  var alTerminar = {}
+
+  method mostrar(unBloque) {
+    alTerminar = unBloque
+    self.mostrar()
+  }
+
+  method elegirIzquierda() { self.cerrar() }
+  method elegirDerecha() { self.cerrar() }
+
+  method cerrar() {
+    if (self.estaMostrandose()) {
+      self.ocultar()
+      alTerminar.apply()
+    }
+  }
+}
+
 object menu inherits Pantalla(imagen = "menu.png") {}
 
-object instructivo inherits PantallaTemporal(imagen = "instructivo.png", duracion = 12000) {}
+object instructivo inherits PantallaQueEsperaTecla(imagen = "instructivo.png") {}
 
 object avisoDeExamen inherits PantallaTemporal(imagen = "avisoDeExamen.png", duracion = 4000) {}
+
+// Lo que se ve unos segundos al terminar el examen, antes de volver al menu
+object pantallaAprobaste inherits PantallaTemporal(imagen = "aprobaste.png", duracion = 3500) {}
+
+object pantallaDesaprobaste inherits PantallaTemporal(imagen = "desaprobaste.png", duracion = 3500) {}

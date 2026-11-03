@@ -122,10 +122,16 @@ object modoDeJuego {
     method cambiarA(unCamino){
       if (menu.estaMostrandose()) {
         caminoActual = unCamino
-        faseActual = unCamino
+        faseActual = instructivo // mientras esta el instructivo, F y G le llegan a el
         menu.ocultar()
-        instructivo.mostrar({ self.siguienteRonda() })
+        instructivo.mostrar({ self.empezarPartida() })
       }
+    }
+
+    // al apretar F o G en el instructivo arranca la primera ronda
+    method empezarPartida() {
+      faseActual = caminoActual
+      self.siguienteRonda()
     }
 
     method siguienteRonda() { faseActual.presentarOpciones() }

@@ -55,9 +55,9 @@ object batalla {
 
   method revisarSiTermino() {
     if (examen.derrotado()) {
-      self.terminar("¡Aprobaste el examen!")
+      self.terminar(pantallaAprobaste)
     } else if (barraAcademica.nivelAcademico() == 0) {
-      self.terminar("¡Te quedaste sin cerebro! Desaprobaste")
+      self.terminar(pantallaDesaprobaste)
     }
   }
 
@@ -66,14 +66,14 @@ object batalla {
     desafioActual.mostrar()
   }
 
-  method terminar(mensaje) {
+  // muestra unos segundos si aprobaste o no, y despues vuelve al menu
+  method terminar(pantallaDeResultado) {
     peleando = false
     game.removeTickEvent("gastarCerebro")
     desafioActual.ocultar()
     game.removeVisual(examen)
     examen.reiniciar()
-    game.say(barraAcademica, mensaje)
-    barraAcademica.terminar()
+    pantallaDeResultado.mostrar({ barraAcademica.terminar() })
   }
 }
 
