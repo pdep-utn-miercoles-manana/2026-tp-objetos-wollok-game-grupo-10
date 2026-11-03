@@ -83,7 +83,7 @@ object batalla {
   method revisarSiTermino() {
     if (examen.derrotado()) {
       self.terminar(pantallaAprobaste)
-    } else if (barraAcademica.nivelAcademico() == 0) {
+    } else if (barraAcademica.sinConocimiento()) {
       self.terminar(pantallaDesaprobaste)
     }
   }

@@ -21,18 +21,18 @@ class Consumible {
   }
 }
 
-const chocolate = new Consumible(nombreArchivo = "choco", puntosAcademicos = 10, puntosEstres = 0)
-const bestia = new Consumible(nombreArchivo = "energetica", puntosAcademicos = 15, puntosEstres = -20) // la energetica te baja el estres
+const chocolate = new Consumible(nombreArchivo = "choco", puntosAcademicos = 15, puntosEstres = -20)
+const bestia = new Consumible(nombreArchivo = "energetica", puntosAcademicos = 25, puntosEstres = 10)
 
 // De aca sale el consumible que se ofrece como UNA de las dos opciones de una ronda.
-object kiosco { // mejor nombre, mas especifico
-  method consumibles() = [chocolate, bestia]
+object sorteoDeConsumibles {
+  const consumibles = [chocolate, bestia]
 
-  method consumibleAlAzar() = self.consumibles().anyOne()
+  method unoAlAzar() = consumibles.anyOne()
 }
 
 object inventario {
-  var property items = []
+  const items = []
 
   method guardar(unItem) {
     if (self.hayLugar()) {
@@ -55,17 +55,19 @@ object inventario {
       item.consumido()
     }
   }
+
+  method imagenDelEspacio(numero) =
+    if (numero < items.size())
+      items.get(numero).imagenInventario()
+    else
+      "Consumibles/cuadrito_azul.png"
 }
 
 class EspacioInventario {
-  var property position = game.at(0, 0)
+  const property position
   const numeroPosicionInventario
 
-  method image() =
-    if (numeroPosicionInventario < inventario.items().size())
-      inventario.items().get(numeroPosicionInventario).imagenInventario()
-    else
-      "Consumibles/cuadrito_azul.png"
+  method image() = inventario.imagenDelEspacio(numeroPosicionInventario)
 }
 
 const espacio1 = new EspacioInventario(position = game.at(26, 11), numeroPosicionInventario = 0)

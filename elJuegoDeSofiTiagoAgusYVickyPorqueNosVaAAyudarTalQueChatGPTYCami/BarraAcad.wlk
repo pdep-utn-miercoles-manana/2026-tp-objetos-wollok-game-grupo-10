@@ -2,12 +2,9 @@ import wollok.game.*
 import pantallas.*
 
 object barraAcademica {
-  var property position = game.at(27, 14.2)
+  const property position = game.at(27, 14.2)
   var nivelAcademico = 0
   var nivelEstres = 0
-
-  method nivelAcademico() = nivelAcademico
-  method nivelEstres() = nivelEstres
 
   // para que no se pase de 100 ni sea negativo
   method limitar(valor) = valor.max(0).min(100)
@@ -21,21 +18,24 @@ object barraAcademica {
     alertaEstres.actualizar() // si el estres esta alto, avisa
   }
 
+  method borrarEstres() {
+    nivelEstres = 0
+    alertaEstres.actualizar()
+  }
+
   method asegurarNivel(minimo) { nivelAcademico = nivelAcademico.max(minimo) }
 
   method estresAlcanza(limite) = nivelEstres >= limite
-  method academicoAlcanza(minimo) = nivelAcademico >= minimo
+  method sinConocimiento() = nivelAcademico == 0
 
   method reiniciar() {
     nivelAcademico = 0
-    nivelEstres = 0
-    alertaEstres.actualizar()
+    self.borrarEstres()
   }
 
   method image() = "cerebros/Cerebro" + nivelAcademico.div(2) + ".png" // 51 cerebros: uno cada 2 puntos (0 a 100)
 }
 
-// Icono de peligro: aparece cuando el estres empieza a subir mucho y se pone rojo cuando esta por llegar al limite.
 object alertaEstres {
   const property position = game.at(26, 5.5)
   const nivelPeligro = 60
