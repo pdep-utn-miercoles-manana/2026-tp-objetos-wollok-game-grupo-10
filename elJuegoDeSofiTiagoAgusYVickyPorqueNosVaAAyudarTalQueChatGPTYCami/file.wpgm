@@ -3,44 +3,34 @@ import pantallas.*
 import Consumibles.*
 import BarraAcad.*
 import boton.*
-import Caminos.*
-import Opciones.*
-import ExamenFinal.*
-import Desafios.*
-import Combate.*
-import Historia.*
+import Modos.*
 
 program juego {
   game.width(32)
   game.height(18)
   game.cellSize(40)
-  game.title("Juego")
-
-  
-  keyboard.num1().onPressDo({modoDeJuego.cambiarA(caminoHistoria)}) // esto es para elegir al dificultad
-  keyboard.num2().onPressDo({modoDeJuego.cambiarA(caminoMedio) }) 
-  keyboard.num3().onPressDo({modoDeJuego.cambiarA(caminoDificil)})
+  game.title("¡A estudiar!")
+  game.boardGround("pizarron.png")
 
   game.addVisual(barraAcademica)
   game.addVisual(botonF)
   game.addVisual(botonG)
   game.addVisual(espacio1)
   game.addVisual(espacio2)
-  game.addVisual(nota_rosa)
-  game.addVisual(nota_amarilla)
 
+  // los dos unicos modos de juego
+  keyboard.num1().onPressDo({ modoDeJuego.elegirModo(historia) })
+  keyboard.num2().onPressDo({ modoDeJuego.elegirModo(aleatorio) })
 
-  keyboard.b().onPressDo({inventario.consumir()})
+  keyboard.f().onPressDo({ modoDeJuego.faseActual().elegirIzquierda() })
+  keyboard.g().onPressDo({ modoDeJuego.faseActual().elegirDerecha() })
+  keyboard.b().onPressDo({ inventario.consumir() })
 
-  keyboard.f().onPressDo({modoDeJuego.faseActual().elegirIzquierda()})
-  keyboard.g().onPressDo({modoDeJuego.faseActual().elegirDerecha()})
-  
+  const musica = game.sound("musica.mp3")
+  musica.shouldLoop(true)
+  musica.volume(0.03) 
+  game.schedule(500, { musica.play() })
 
-  cargaDeOpciones.cargar()
-  cargaDeBatalla.cargar()
-  cargaDeHistoria.cargar()
   menu.mostrar()
-
   game.start()
 }
-
