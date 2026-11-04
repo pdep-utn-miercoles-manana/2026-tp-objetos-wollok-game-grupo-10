@@ -180,7 +180,7 @@ class Modo {
 }
 
 
-object historia inherits Modo(notas = [nota_rosa_chica, nota_amarilla_chica]) {
+class ModoHistoria inherits Modo {
   const posicionDelResultado = game.at(1, 4)
   const situaciones = [
     new Situacion(nombre = "mascota",
@@ -227,13 +227,10 @@ object historia inherits Modo(notas = [nota_rosa_chica, nota_amarilla_chica]) {
   }
 }
 
+const historia = new ModoHistoria(notas = [nota_rosa_chica, nota_amarilla_chica])
 
-// ---------------------------------------------------------------------
-//  ALEATORIO: 12 rondas sacadas al azar de un pozo.
-//  1 de cada 3 rondas, una de las notas es un consumible.
-//  (los puntos de estres son los que tenia el viejo modo "medio")
-// ---------------------------------------------------------------------
-object aleatorio inherits Modo(notas = [nota_rosa, nota_amarilla]) {
+
+class ModoAleatorio inherits Modo {
   const rondasPorPartida = 12
   const suertesDeConsumible = [true, false, false] // chances de que aparezca un consumible
   const yaElegidas = []
@@ -292,6 +289,8 @@ object aleatorio inherits Modo(notas = [nota_rosa, nota_amarilla]) {
     yaElegidas.clear()
   }
 }
+
+const aleatorio = new ModoAleatorio(notas = [nota_rosa, nota_amarilla])
 
 
 // ---------------------------------------------------------------------

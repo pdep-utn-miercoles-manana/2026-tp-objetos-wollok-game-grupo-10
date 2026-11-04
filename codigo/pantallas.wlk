@@ -68,16 +68,16 @@ class PantallaQueEsperaTecla inherits Pantalla {
   }
 }
 
-object menu inherits Pantalla(imagen = "menu.png") {}
+const menu = new Pantalla(imagen = "menu.png")
 
-object instructivo inherits PantallaQueEsperaTecla(imagen = "instructivo.png") {}
+const instructivo = new PantallaQueEsperaTecla(imagen = "instructivo.png")
 
-object avisoDeExamen inherits PantallaTemporal(imagen = "avisoDeExamen.png", duracion = 4000) {}
+const avisoDeExamen = new PantallaTemporal(imagen = "avisoDeExamen.png", duracion = 4000)
 
 // Lo que se ve unos segundos al terminar el examen, antes de volver al menu
-object pantallaAprobaste inherits PantallaTemporal(imagen = "aprobaste.png", duracion = 3500) {}
+const pantallaAprobaste = new PantallaTemporal(imagen = "aprobaste.png", duracion = 3500)
 
-object pantallaDesaprobaste inherits PantallaTemporal(imagen = "desaprobaste.png", duracion = 3500) {}
+const pantallaDesaprobaste = new PantallaTemporal(imagen = "desaprobaste.png", duracion = 3500)
 
 // Cartelito de tiza que aparece cuando ya podes pasar a la proxima ronda
 object pistaSeguir {
